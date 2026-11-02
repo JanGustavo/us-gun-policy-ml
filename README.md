@@ -1,28 +1,48 @@
 # US Gun Policy ML
 
-Pesquisa acadêmica exploratória sobre a **previsão da taxa anual de homicídios totais** nos 50 estados americanos. Comparamos a previsão ingênua (repetir a taxa anterior), um modelo linear com histórico de homicídios e fatores econômicos (A), e o mesmo modelo acrescido de indicadores de legislação sobre armas (B). **Previsão não demonstra causalidade.**
+**Trabalho de Machine Learning (AV2), desenvolvido por dois estudantes de Análise e Desenvolvimento de Sistemas.**
 
-## Status da pesquisa · 02/11/2026
+A pergunta que orientou o projeto foi simples: **usar informações sobre leis de armas ajuda a prever a taxa de homicídios do ano seguinte nos estados dos EUA?** Não estamos tentando provar que uma lei causa mais ou menos homicídios. Nosso foco é comparar previsões.
 
-Integração de quatro fontes concluída: CDC (homicídios totais), RAND (porte oculto e verificação de antecedentes em vendas privadas), BLS (desemprego) e BEA (renda pessoal per capita). Dataset V3: **250 registros × 13 colunas**, com entradas de 2019–2023 para prever alvos de 2020–2024.
+## O que já fizemos
 
-### Resultado principal
+1. Reunimos dados de quatro fontes: CDC (homicídios), RAND (leis sobre armas), BLS (desemprego) e BEA (renda por pessoa).
+2. Organizamos dados de 50 estados entre 2019 e 2024.
+3. Criamos uma tabela para prever **a taxa de homicídios do ano seguinte**. Ela tem 250 linhas e 13 colunas.
+4. Comparamos três formas de prever: repetir a taxa do ano anterior, usar uma regressão linear com dados econômicos (Modelo A) e acrescentar informações sobre as leis (Modelo B).
+5. Testamos as previsões para 2022, 2023 e 2024, sempre treinando com anos anteriores.
 
-Média das métricas nas três rodadas de teste, prevendo 2022, 2023 e 2024. Quanto menor, melhor; unidade: homicídios por 100 mil habitantes.
+## O que encontramos
 
-| Modelo | MAE médio | RMSE médio |
+O **MAE** mostra, em média, o quanto o modelo errou na taxa de homicídios por 100 mil habitantes. Quanto menor, melhor. O **RMSE** é outra medida de erro que dá mais peso aos erros grandes.
+
+| Forma de prever | MAE médio | RMSE médio |
 | --- | ---: | ---: |
-| Ingênuo, repetir o ano anterior | **0,785** | **1,027** |
-| A: taxa anterior, desemprego e renda | 0,944 | 1,239 |
-| B: A + indicadores de legislação | 0,959 | 1,263 |
+| Repetir a taxa do ano anterior | **0,785** | **1,027** |
+| Modelo A: taxa anterior, desemprego e renda | 0,944 | 1,239 |
+| Modelo B: Modelo A + informações sobre leis | 0,959 | 1,263 |
 
-O modelo B **não melhorou consistentemente** a previsão em relação ao A. Em 2024, o B teve MAE ligeiramente menor, mas RMSE maior; em 2022 e 2023 o modelo ingênuo superou ambos os modelos lineares em MAE. **Não foi testado se a legislação causa aumento ou redução de homicídios.**
+A forma mais simples teve os menores erros médios. **Adicionar informações sobre as leis não melhorou os resultados de forma constante**. Em 2024, por exemplo, o Modelo B acertou um pouco mais pelo MAE, mas isso não se repetiu nos outros anos.
 
-### O que impede a conclusão mais forte?
+Isso não significa que as leis não tenham efeitos. Significa apenas que **não conseguimos melhorar a previsão com essas informações no modelo que testamos**.
 
-O experimento não está tecnicamente travado: o resultado observado é que os modelos complexos não superaram a persistência, em média, num período curto. A série tem apenas três anos de teste; as observações por estado se repetem; há choques temporais e variáveis não observadas. A renda BEA é nominal; as séries históricas podem ter revisões posteriores. A codificação RAND usa aproximações anuais de vigência, sem medir meses de exposição. Algumas modalidades CCW podem coexistir (Louisiana 2024). **Não é apropriado tentar vários algoritmos até aparecer um resultado favorável.**
+## Por que paramos nesse ponto?
 
-## Executando localmente
+Não é porque o código deixou de funcionar. O resultado do teste foi diferente do que poderíamos esperar: acrescentar dados não garantiu uma previsão melhor. Temos poucos anos para testar, e homicídios dependem de muitos fatores que nossa tabela não inclui. Seria errado ficar trocando os algoritmos só até encontrar o resultado que gostaríamos.
+
+## Como o projeto está organizado
+
+| Arquivo | O que fazemos nele |
+| --- | --- |
+| [01_eda.ipynb](notebooks/01_eda.ipynb) | Baixamos e observamos os dados de homicídios. |
+| [02_rand_inspection.ipynb](notebooks/02_rand_inspection.ipynb) | Organizamos as informações das leis. |
+| [03_data_integration.ipynb](notebooks/03_data_integration.ipynb) | Juntamos as fontes em uma tabela. |
+| [05_bea_inspection.ipynb](notebooks/05_bea_inspection.ipynb) | Preparamos os dados de renda. |
+| [06_model_comparison.ipynb](notebooks/06_model_comparison.ipynb) | Treinamos, fazemos previsões e comparamos erros. |
+
+O número 04 foi reservado durante as explorações; não existe um notebook 04 versionado no repositório.
+
+## Para executar
 
 ```bash
 python -m venv .venv
@@ -31,30 +51,17 @@ pip install -r requirements.txt
 jupyter lab
 ```
 
-Abra os notebooks a partir de `notebooks/` como diretório de trabalho. Arquivos:
+Os notebooks foram escritos para trabalhar a partir da pasta `notebooks/`. **Os arquivos de dados brutos e processados não estão no Git**, por isso baixar apenas o repositório não é suficiente para executar tudo.
 
-- [01_eda.ipynb](notebooks/01_eda.ipynb): CDC, coleta e análise exploratória.
-- [02_rand_inspection.ipynb](notebooks/02_rand_inspection.ipynb): leis RAND, processamento e auditoria.
-- [03_data_integration.ipynb](notebooks/03_data_integration.ipynb): V1, V2, V3 e preparação BLS.
-- [05_bea_inspection.ipynb](notebooks/05_bea_inspection.ipynb): preparação BEA.
-- [06_model_comparison.ipynb](notebooks/06_model_comparison.ipynb): previsão ingênua, A e B, MAE/RMSE por ano.
+Fontes utilizadas: [CDC](https://data.cdc.gov/d/fpsi-y8tj), [RAND](https://www.rand.org/pubs/tools/TLA243-2.html), [BLS](https://www.bls.gov/lau/tables.htm) e [BEA](https://apps.bea.gov/itable/?ReqID=70&step=1). A planilha RAND está em `reports/attachments/`; para as outras fontes, os notebooks esperam arquivos em `data/raw/`.
 
-**Dependência conhecida:** o notebook 03 cria V2 e depois depende de BEA gerado pelo notebook 05. Para executar manualmente num ambiente limpo: 01, 02, 03 até V2, 05, retornar ao 03 para gerar V3 e, por último, 06. Ainda será necessário automatizar essa dependência e testar a reprodução integral.
+**Ordem de execução atual:** 01, 02, 03 até a tabela V2, 05, voltar ao 03 para criar a V3 e, por último, 06. Ainda queremos simplificar essa sequência.
 
-**Dados brutos e processados não estão no Git.** O `.gitignore` exclui `data/raw/` e `data/processed/`. Um clone isolado não permite reproduzir os resultados. Prepare os seguintes arquivos originais:
+## O que falta fazer
 
-- CDC [Mapping Injury, Overdose, and Violence – State](https://data.cdc.gov/d/fpsi-y8tj), `All_Homicide`, 2019–2024: `data/raw/cdc_homicides_2019_2024.csv`.
-- BLS [LAUS](https://www.bls.gov/lau/tables.htm), planilha de `staadata.zip`: `data/raw/staadata/staadata.xlsx`.
-- BEA [SAINC1](https://apps.bea.gov/itable/?ReqID=70&step=1), per capita personal income, exportação CSV: `data/raw/bea/personal_income.csv`.
-- Planilha RAND 6.0 já versionada em `reports/attachments/`.
+- Conferir se todos os notebooks executam do começo ao fim sem depender de variáveis salvas na memória.
+- Conferir com mais cuidado a data de início e fim de algumas leis.
+- Fazer gráficos claros para a apresentação e explicar os erros dos modelos.
+- Organizar uma conclusão com os resultados reais, mesmo que diferentes da hipótese inicial.
 
-Os CSVs processados são gerados nos notebooks. Os resultados de validação estão versionados em `reports/results/`.
-
-## Documentação
-
-- [Protocolo e hipóteses](reports/research_protocol.md)
-- [Fontes e dicionário de variáveis](reports/data_dictionary.md)
-- [Resultados por rodada e interpretação](reports/experiment_results.md)
-- [Problemas atuais e plano de continuidade](reports/next_steps.md)
-
-**Próximo marco:** reproduzir integralmente em ambiente limpo, auditar vigência de leis com datas completas e sobreposições e realizar análises de sensibilidade pré-definidas. Se a regra de classificação mudar, gerar V4 e preservar V3 e as métricas históricas.
+**Documentos:** [pergunta e plano da pesquisa](reports/research_protocol.md), [explicação das colunas](reports/data_dictionary.md), [resultados completos](reports/experiment_results.md) e [próximos passos](reports/next_steps.md).

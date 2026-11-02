@@ -1,18 +1,29 @@
-# Continuidade da pesquisa · 02/11/2026
+# O que já fizemos e o que falta
 
-## O problema atual
+Este é um trabalho de **dois estudantes**, com foco em aplicar conceitos básicos de aprendizado supervisionado e entender os resultados, não em construir uma pesquisa profissional completa.
 
-O ganho preditivo com indicadores de legislação não se sustentou nas três rodadas temporais. MAE médio: persistência **0,785**, Modelo A **0,944**, Modelo B **0,959**. Isso não é falha de código nem prova de ausência de efeitos jurídicos: é uma limitação do poder preditivo dos modelos testados e do horizonte de avaliação.
+## Concluído
 
-## Roteiro de trabalho, em ordem
+- [x] Escolhemos uma pergunta que pode ser testada com dados.
+- [x] Reunimos informações de homicídios, leis, desemprego e renda.
+- [x] Limpamos e juntamos as tabelas usando estado e ano.
+- [x] Criamos exemplos com informações de um ano e taxa de homicídios do ano seguinte.
+- [x] Treinamos dois modelos de regressão linear e usamos uma previsão simples como comparação.
+- [x] Medimos erros em 2022, 2023 e 2024.
+- [x] Conferimos 18 mudanças de classificação das leis de porte de armas na RAND.
 
-- [ ] **P0 Reprodutibilidade:** executar notebooks em kernels limpos, mover a leitura BLS e BEA para etapas independentes, registrar versões das fontes e checksums. Atualmente o 03 depende do 05 no meio do fluxo.
-- [ ] **P0 Testes:** assegurar 50 estados × seis anos em cada fonte, chaves sem duplicação, valores válidos, deslocamento correto do alvo e comparação dos nove resultados versionados.
-- [x] **Auditoria parcial CCW:** conferir seis transições may-issue para shall-issue em 2022 e 12 transições para permitless entre 2021 e 2023 com os registros RAND.
-- [ ] **P1 Auditoria RAND:** examinar dias/meses, revogações, datas de substituição, regras multicategoria (incluindo Louisiana 2024), categorias de antecedentes e duração de exposição. Qualquer correção cria V4 e novo experimento identificado.
-- [ ] **P2 Robustez pré-definida:** investigar influência de outliers, heterogeneidade entre estados, choques de pandemia, renda nominal, diferentes cortes de treino e dependência temporal. Não selecionar algoritmos conforme resultado desejado.
-- [ ] **P3 Divulgação acadêmica:** visualizações por rodada, resultados favoráveis e desfavoráveis, distinção de predição e causalidade, referências e apresentação para dois estudantes.
+## O problema que encontramos
 
-## Critérios de avanço
+Queríamos saber se adicionar informações sobre leis ajudaria a prever melhor. **Não ajudou de maneira constante** nos testes feitos. O resultado médio mais baixo foi o da previsão simples. Isso não significa que o projeto deu errado: encontramos uma resposta possível, reconhecendo que temos poucos dados e um modelo básico.
 
-O pipeline precisa executar desde os arquivos originais, sem depender de variáveis antigas do Jupyter. Resultados devem ser comparados com `reports/results/temporal_validation.csv` e `model_comparison_summary.csv`. Hipóteses e escolhas exploratórias posteriores devem ser declaradas e não confundidas com a avaliação inicial.
+## Próximos passos possíveis
+
+- [ ] **Primeiro:** abrir os notebooks na ordem e confirmar que todas as células funcionam depois de reiniciar o Jupyter.
+- [ ] **Depois:** simplificar a ordem de preparação dos arquivos, porque hoje precisamos sair do notebook 03, abrir o 05 e voltar ao 03.
+- [ ] **Conferir:** se a data de algumas leis foi registrada corretamente, principalmente quando começaram no meio de um ano. Não apagar a versão antiga se precisarmos corrigir algo.
+- [ ] **Apresentar:** criar gráficos simples com os erros de cada modelo e explicar com nossas próprias palavras o que fizemos.
+- [ ] **Se houver tempo:** testar mais uma ideia de forma planejada, sem escolher o resultado que mais favoreça uma opinião.
+
+## O que não precisamos fazer agora
+
+Não precisamos adicionar muitos algoritmos, criar fórmulas complexas ou fazer afirmações sobre causa e efeito. Uma explicação clara dos métodos e das limitações é mais importante do que deixar o projeto artificialmente complicado.

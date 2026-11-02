@@ -1,5 +1,7 @@
 # Dicionário de Dados
 
+Este arquivo explica o que cada coluna representa. Ele é mais detalhado que o README porque serve de consulta quando precisamos conferir os dados, mas não é necessário decorar os nomes técnicos para entender o trabalho.
+
 ## Dataset 01: Homicídios nos Estados Unidos
 
 **Fonte:** Centers for Disease Control and Prevention (CDC)  
@@ -85,9 +87,9 @@ A cobertura temporal foi confirmada de 2019 a 2024, com registros dos 50 estados
 | --- | --- |
 | `state` | Estado americano |
 | `year` | Ano de referência |
-| `ccw_shall_issue` | Existência de regime de licença do tipo shall issue |
+| `ccw_shall_issue` | Existência de regime de licença do tipo shall issue (licença concedida quando os requisitos são cumpridos) |
 | `ccw_permitless` | Existência de modalidade de porte oculto sem exigência de licença |
-| `ccw_may_issue` | Existência de regime de licença do tipo may issue |
+| `ccw_may_issue` | Existência de regime de licença do tipo may issue (licença depende de avaliação da autoridade) |
 | `ccw_prohibited` | Existência de registro de proibição de porte oculto |
 
 As variáveis utilizam 1 para presença e 0 para ausência da modalidade identificada nos registros da RAND.

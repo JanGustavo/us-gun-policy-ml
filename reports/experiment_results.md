@@ -1,98 +1,57 @@
-# Resultados dos experimentos de Machine Learning
+# Resultados dos nossos testes
 
-## 1. Objetivo
+## O que queríamos descobrir?
 
-Avaliar se a inclusão de indicadores estaduais de legislação armamentista melhora a previsão da taxa de homicídios do ano seguinte nos Estados Unidos.
+Queríamos comparar previsões de homicídios feitas **com e sem informações sobre leis de armas**. Antes de comparar, também testamos uma opção bem simples: usar a taxa do ano anterior como previsão.
 
-O estudo compara dois modelos de regressão linear e uma estratégia de previsão ingênua.
+Usamos a mesma base de 50 estados e os mesmos anos de teste para os modelos A e B. O programa tentou prever as taxas de 2022, 2023 e 2024.
 
-## 2. Base de dados
+## Como ler os números
 
-Foram utilizadas informações de quatro fontes:
+- **MAE:** quanto a previsão erra, em média. Por exemplo, MAE 1 significa erro médio de 1 homicídio por 100 mil habitantes.
+- **RMSE:** outra forma de calcular o erro, que dá mais importância às previsões que erraram muito.
+- **Quanto menor o resultado, melhor foi a previsão.**
 
-- **CDC:** taxas anuais de homicídios.
-- **RAND:** classificações estaduais de legislação armamentista.
-- **BLS:** taxas anuais de desemprego.
-- **BEA:** renda pessoal per capita.
-
-O dataset supervisionado contém 250 observações, correspondentes aos 50 estados americanos, com variáveis de entrada de 2019 a 2023 e taxas de homicídios previstas de 2020 a 2024.
-
-## 3. Modelos avaliados
-
-**Modelo ingênuo:** utiliza a taxa de homicídios do ano anterior como previsão para o ano seguinte.
-
-**Modelo A:** regressão linear utilizando taxa anterior de homicídios, desemprego e renda pessoal per capita.
-
-**Modelo B:** utiliza as mesmas variáveis do Modelo A, acrescentando indicadores de porte de armas e de verificação de antecedentes em vendas privadas.
-
-Os Modelos A e B foram implementados com `StandardScaler` e `LinearRegression`, utilizando um pipeline do scikit-learn.
-
-## 4. Metodologia de avaliação
-
-Foi utilizada uma validação temporal expansiva, com três rodadas:
-
-| Ano previsto | Anos de entrada utilizados no treinamento | Observações de teste |
-| --- | --- | ---: |
-| 2022 | 2019–2020 | 50 |
-| 2023 | 2019–2021 | 50 |
-| 2024 | 2019–2022 | 50 |
-
-As métricas adotadas foram o erro absoluto médio (MAE) e a raiz do erro quadrático médio (RMSE). Valores menores representam melhor desempenho.
-
-## 5. Resultados
+## Resultados por ano
 
 | Ano previsto | Modelo | MAE | RMSE |
 | --- | --- | ---: | ---: |
-| 2022 | Ingênuo | 0,808 | 1,126 |
-| 2022 | Modelo A | 1,330 | 1,763 |
-| 2022 | Modelo B | 1,380 | 1,822 |
-| 2023 | Ingênuo | 0,710 | 0,884 |
-| 2023 | Modelo A | 0,826 | 1,001 |
-| 2023 | Modelo B | 0,832 | 0,979 |
-| 2024 | Ingênuo | 0,838 | 1,072 |
-| 2024 | Modelo A | 0,677 | 0,953 |
-| 2024 | Modelo B | 0,664 | 0,988 |
+| 2022 | Simples (repetir ano anterior) | **0,808** | **1,126** |
+| 2022 | A | 1,330 | 1,763 |
+| 2022 | B | 1,380 | 1,822 |
+| 2023 | Simples (repetir ano anterior) | **0,710** | **0,884** |
+| 2023 | A | 0,826 | 1,001 |
+| 2023 | B | 0,832 | 0,979 |
+| 2024 | Simples (repetir ano anterior) | 0,838 | 1,072 |
+| 2024 | A | 0,677 | **0,953** |
+| 2024 | B | **0,664** | 0,988 |
 
-### Médias das três rodadas
+## Média dos três testes
 
 | Modelo | MAE médio | RMSE médio |
 | --- | ---: | ---: |
-| Ingênuo | 0,785 | 1,027 |
-| Modelo A | 0,944 | 1,239 |
-| Modelo B | 0,959 | 1,263 |
+| Simples | **0,785** | **1,027** |
+| A: com dados econômicos | 0,944 | 1,239 |
+| B: com dados econômicos e leis | 0,959 | 1,263 |
 
-O RMSE médio corresponde à média dos RMSEs das três rodadas, não ao RMSE global calculado sobre todas as previsões.
+O RMSE médio desta tabela é a média dos três valores anuais, não um cálculo único com todas as previsões juntas.
 
-## 6. Discussão
+## O que aprendemos?
 
-Em 2022 e 2023, o modelo ingênuo apresentou menores erros absolutos médios que os modelos de regressão. Em 2024, os modelos A e B superaram a previsão ingênua.
+O Modelo B teve resultados um pouco melhores em alguns casos, mas também errou mais em outros. Em 2024, por exemplo, B teve erro absoluto menor em 24 estados e maior em 26. Olhar só para o ano de 2024 poderia dar a impressão de que acrescentar as leis foi vantajoso, mas **isso não aconteceu de forma constante nos três anos**.
 
-A inclusão de indicadores legislativos não apresentou melhoria consistente. O Modelo B obteve MAE ligeiramente menor em 2024, mas seus erros médios foram superiores aos do Modelo A na avaliação consolidada.
+A descoberta que mais chamou nossa atenção foi que **a previsão simples teve os menores erros médios**. Isso mostra que um modelo com mais informações nem sempre prevê melhor.
 
-Esses resultados indicam que acrescentar variáveis não garante maior capacidade preditiva.
+## Por que ainda não podemos afirmar muita coisa?
 
-## 7. Limitações
+Usamos apenas três anos de teste, com os mesmos estados aparecendo várias vezes. Homicídios também dependem de fatores que não estão na nossa tabela. Os valores das fontes são históricos e podem ter sido atualizados. Além disso, algumas leis mudaram durante o ano, e nossa tabela não diferencia quantos meses cada regra esteve em vigor.
 
-O estudo utiliza apenas três anos de avaliação temporal e observa repetidamente os mesmos 50 estados.
+Não podemos dizer que uma lei aumenta ou diminui homicídios só porque uma variável ajudou ou não ajudou a prever um valor. **Previsão não é a mesma coisa que causa.**
 
-As variáveis legislativas representam classificações anuais, não necessariamente a exposição durante todos os meses do ano.
+## Conclusão até o momento
 
-A renda per capita foi utilizada em dólares correntes, sem ajuste pela inflação.
+**Nos testes que fizemos, acrescentar informações sobre as leis não melhorou de maneira constante as previsões de homicídios.** A forma mais simples de prever apresentou o menor erro médio nas três rodadas.
 
-As bases históricas podem conter revisões posteriores às datas dos eventos, portanto o experimento é retrospectivo e não representa integralmente previsões realizadas com informações disponíveis em tempo real.
+Isso responde à pergunta sobre **nosso modelo e nossos dados**, mas não resolve o debate sobre os efeitos reais das leis. O caminho agora é conferir a organização dos dados, explicar as limitações e apresentar com clareza o que aprendemos.
 
-A regressão linear também não contempla todas as possíveis relações não lineares, interações entre variáveis ou fatores não observados.
-
-## 8. Conclusão preliminar
-
-Nos experimentos realizados, a inclusão de indicadores de legislação armamentista não apresentou ganho preditivo consistente em relação ao modelo de referência.
-
-A previsão ingênua obteve o menor erro médio nas três rodadas avaliadas.
-
-Os resultados não permitem estabelecer relações causais entre legislação armamentista e homicídios, nem comprovar a ausência dessas relações. A interpretação fica restrita ao desempenho preditivo observado nos modelos e períodos analisados.
-
-## 9. Estado atual e interpretação do resultado (02/11/2026)
-
-A persistência obteve o menor MAE médio (0,785), frente a A (0,944) e B (0,959). Isso mostra o limite preditivo encontrado, não um erro de treinamento. No teste de 2024, B reduziu erro absoluto em 24 estados e aumentou em 26; portanto, uma pequena melhoria no MAE daquele ano não se manteve como vantagem consistente. O resultado não demonstra presença nem ausência de efeito causal de legislação.
-
-A auditoria RAND contemplou as 18 transições CCW observadas entre 2019 e 2023, não todos os registros legislativos. A convenção de classificação anual exige revisão das datas de vigência completas; veja [plano de continuidade](next_steps.md). Os dados econômicos históricos podem ter revisões e a avaliação não equivale a uma previsão feita com informações de época.
+Os valores usados nesta seção estão preservados em `reports/results/temporal_validation.csv` e `model_comparison_summary.csv`.

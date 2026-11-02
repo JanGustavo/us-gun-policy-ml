@@ -1,112 +1,61 @@
-# Protocolo de Pesquisa
+# Plano da pesquisa
 
-**Projeto:** Legislação sobre armas de fogo e taxas de homicídios nos Estados Unidos  
 **Disciplina:** Machine Learning (AV2)  
-**Equipe:** 2 integrantes
+**Equipe:** dois estudantes de Análise e Desenvolvimento de Sistemas
 
-## 1. Tema e pergunta de pesquisa
+## Nossa pergunta
 
-O projeto busca investigar a relação entre as legislações estaduais sobre armas de fogo e as taxas de homicídios nos Estados Unidos, utilizando técnicas de Machine Learning.
+**Informações sobre as leis de armas ajudam a prever a taxa de homicídios do ano seguinte nos estados americanos?**
 
-**Pergunta principal:**
+Escolhemos o tema para praticar o que aprendemos sobre **aprendizado supervisionado**: damos exemplos com informações de um ano e ensinamos o programa a tentar prever um valor do ano seguinte.
 
-A inclusão de informações sobre as leis de armas de fogo melhora a capacidade de prever as taxas de homicídios nos estados americanos?
+Não estamos tentando descobrir qual lei é melhor ou pior, nem provar que determinada lei causa homicídios.
 
-A pesquisa não parte do pressuposto de que leis mais restritivas ou mais permissivas necessariamente aumentam ou reduzem a criminalidade.
+## Como pensamos em testar
 
-## 2. Objetivo
+Comparamos três opções:
 
-Desenvolver e avaliar um modelo de Machine Learning capaz de prever a taxa anual de homicídios por 100 mil habitantes nos estados americanos.
+- **Previsão simples:** repetir a taxa de homicídios do ano anterior.
+- **Modelo A:** usar a taxa anterior, o desemprego e a renda por pessoa.
+- **Modelo B:** usar as informações do A e acrescentar dados sobre leis de porte de armas e verificação de antecedentes em vendas privadas.
 
-Para isso, serão comparadas duas versões do modelo:
+Nossa ideia inicial era que o Modelo B **poderia** prever melhor. Tratamos isso como uma pergunta, não como uma resposta pronta.
 
-- **Modelo A:** utiliza dados históricos de homicídios e indicadores socioeconômicos.
-- **Modelo B:** utiliza os mesmos dados, acrescentando informações sobre as leis estaduais de armas de fogo.
+## De onde vieram os dados?
 
-O objetivo é verificar se as variáveis legislativas ajudam a melhorar as previsões.
-
-## 3. Hipóteses
-
-- **H0:** adicionar informações sobre a legislação de armas não melhora a capacidade preditiva.
-- **H1:** adicionar essas informações melhora a capacidade preditiva.
-
-Independentemente do resultado, a pesquisa buscará apresentar os dados de forma imparcial.
-
-## 4. Dados utilizados
-
-A pesquisa utilizará dados públicos referentes aos 50 estados americanos, organizados por estado e ano.
-
-**Fontes previstas:**
-
-- **CDC:** informações sobre homicídios.
-- **RAND Corporation:** histórico das legislações estaduais sobre armas de fogo.
-- **US Census Bureau e outras fontes oficiais:** dados populacionais e socioeconômicos.
-
-**Variáveis iniciais:**
-
-| Variável | Descrição |
+| Fonte | Informação usada |
 | --- | --- |
-| Estado | Estado americano analisado |
-| Ano | Ano de referência |
-| Taxa de homicídios | Homicídios por 100 mil habitantes |
-| Desemprego | Taxa de desemprego estadual |
-| Renda | Indicador de renda da população |
-| População | Quantidade de habitantes |
-| Legislação | Características das leis de armas vigentes |
+| CDC | Taxa de homicídios por 100 mil habitantes. |
+| RAND | Algumas regras estaduais sobre porte de armas e verificação de antecedentes. |
+| BLS | Taxa de desemprego. |
+| BEA | Renda pessoal média por habitante. |
 
-As variáveis legislativas específicas e o período histórico serão definidos após verificar a disponibilidade e a compatibilidade das bases.
+Trabalhamos com os 50 estados americanos. As informações de entrada vão de 2019 a 2023, e as taxas que tentamos prever vão de 2020 a 2024. Ao tirar o último ano sem resposta futura, ficamos com 250 exemplos.
 
-A variável-alvo será a **taxa de homicídios do ano seguinte**, utilizando informações disponíveis em anos anteriores.
+## Como treinamos e testamos
 
-## 5. Metodologia
+Usamos **regressão linear**, um método que tenta combinar os valores de entrada para chegar a uma previsão. Antes, o `StandardScaler` coloca as variáveis em escalas comparáveis. Os dois modelos usam o mesmo método para que a comparação seja justa.
 
-O desenvolvimento seguirá cinco etapas:
+Testamos três vezes. Em cada teste, o programa aprendeu com os anos anteriores:
 
-1. **Coleta:** obter os datasets das fontes selecionadas.
-2. **Preparação:** organizar os dados, tratar valores ausentes e reunir as informações por estado e ano.
-3. **Análise exploratória (EDA):** criar gráficos e identificar padrões, diferenças e possíveis relações entre as variáveis.
-4. **Treinamento:** utilizar um algoritmo de regressão, inicialmente Random Forest, para realizar as previsões.
-5. **Avaliação:** comparar as previsões dos modelos A e B com os valores reais.
-
-Os dados serão divididos cronologicamente. Os anos mais antigos serão utilizados no treinamento, e os três últimos anos completos e compatíveis serão reservados para teste.
-
-A métrica principal será o **MAE (Erro Absoluto Médio)**, que representa a diferença média entre as taxas previstas e observadas. Quanto menor o MAE, melhor o desempenho.
-
-## 6. Cuidados para evitar resultados enviesados
-
-Para preservar a confiabilidade do trabalho, adotaremos os seguintes critérios:
-
-- Utilizar todos os 50 estados, desde que existam dados comparáveis.
-- Não selecionar ou excluir estados com base no resultado esperado.
-- Registrar problemas encontrados nos dados e justificar possíveis exclusões.
-- Não utilizar informações futuras para realizar previsões de anos anteriores.
-- Aplicar os mesmos critérios de avaliação aos dois modelos.
-- Apresentar resultados favoráveis ou contrários às hipóteses iniciais.
-
-**Limitação importante:** uma relação estatística ou uma melhora nas previsões não demonstra, isoladamente, que determinada legislação causou aumento ou redução dos homicídios.
-
-## 7. Organização e entregas
-
-| Data | Atividade |
+| Ano que queríamos prever | Anos usados para treinar (informações de entrada) |
 | --- | --- |
-| 06/11 | Definição do problema, hipóteses e coleta inicial |
-| 13/11 | Limpeza dos dados, EDA e preparação para treinamento |
-| 27/11 | Treinamento, avaliação e análise dos erros |
-| 04/12 | Apresentação final |
+| 2022 | 2019 e 2020 |
+| 2023 | 2019 a 2021 |
+| 2024 | 2019 a 2022 |
 
-**Divisão inicial da equipe:**
+Esse modo de aumentar aos poucos os anos de treino se chama **janela expansiva**: a quantidade de dados para aprender cresce a cada rodada. Os dados não foram embaralhados.
 
-- **Integrante 1:** levantamento das fontes, coleta e organização dos dados.
-- **Integrante 2:** análise exploratória, treinamento e avaliação dos modelos.
+Medimos os erros com MAE (erro médio) e RMSE (que pesa mais os erros grandes). Quanto menor, melhor.
 
-Ambos participarão da revisão dos resultados, documentação e apresentação.
+## Cuidados
 
-## 8. Resultado esperado
+As taxas são de **homicídios totais**, não só os cometidos com armas de fogo. As categorias da RAND representam apenas algumas regras estaduais. Além disso, dados históricos podem ser atualizados depois do período que representam. Usar os dados mais antigos para prever os mais recentes ajuda, mas não resolve todas essas limitações.
 
-Ao final, esperamos apresentar um modelo funcional capaz de estimar taxas de homicídios, acompanhado de gráficos, métricas de desempenho e uma comparação entre os modelos com e sem variáveis legislativas.
+O plano inicial citava a possibilidade de usar Random Forest, mas **não fizemos esse teste**. O que temos executado e documentado é regressão linear e previsão simples.
 
-A conclusão será construída a partir dos resultados encontrados, sem assumir previamente que maior restrição ou maior liberdade de acesso às armas seja responsável por determinado nível de criminalidade.
+## Onde chegamos?
 
-## Registro da execução · 02/11/2026
+A previsão simples teve menor erro médio nas três rodadas: MAE de 0,785, contra 0,944 no Modelo A e 0,959 no B. Então **não encontramos uma melhoria constante ao acrescentar as informações sobre leis**. É um resultado do nosso trabalho, não uma confirmação de que as leis não têm efeito.
 
-O planejamento inicial citava Random Forest, mas a primeira rodada efetivamente realizada empregou **LinearRegression com StandardScaler**, além de previsão ingênua, e três janelas expansivas com alvos 2022, 2023 e 2024. Random Forest não foi executado e não deve ser descrito como resultado. Médias MAE: ingênuo 0,785, A 0,944, B 0,959. A inclusão da legislação não melhorou consistentemente as previsões no experimento realizado. Ver `reports/experiment_results.md`.
+Os números completos estão em [resultados](experiment_results.md). O que ainda falta está em [próximos passos](next_steps.md).
