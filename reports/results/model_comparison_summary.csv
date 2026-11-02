@@ -1,0 +1,4 @@
+modelo,MAE,RMSE
+Ingênuo,0.785,1.027
+Modelo A,0.944,1.239
+Modelo B,0.959,1.263
