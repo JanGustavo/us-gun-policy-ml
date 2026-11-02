@@ -106,3 +106,7 @@ Ambos participarão da revisão dos resultados, documentação e apresentação.
 Ao final, esperamos apresentar um modelo funcional capaz de estimar taxas de homicídios, acompanhado de gráficos, métricas de desempenho e uma comparação entre os modelos com e sem variáveis legislativas.
 
 A conclusão será construída a partir dos resultados encontrados, sem assumir previamente que maior restrição ou maior liberdade de acesso às armas seja responsável por determinado nível de criminalidade.
+
+## Registro da execução · 02/11/2026
+
+O planejamento inicial citava Random Forest, mas a primeira rodada efetivamente realizada empregou **LinearRegression com StandardScaler**, além de previsão ingênua, e três janelas expansivas com alvos 2022, 2023 e 2024. Random Forest não foi executado e não deve ser descrito como resultado. Médias MAE: ingênuo 0,785, A 0,944, B 0,959. A inclusão da legislação não melhorou consistentemente as previsões no experimento realizado. Ver `reports/experiment_results.md`.

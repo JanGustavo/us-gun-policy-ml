@@ -90,3 +90,9 @@ Nos experimentos realizados, a inclusão de indicadores de legislação armament
 A previsão ingênua obteve o menor erro médio nas três rodadas avaliadas.
 
 Os resultados não permitem estabelecer relações causais entre legislação armamentista e homicídios, nem comprovar a ausência dessas relações. A interpretação fica restrita ao desempenho preditivo observado nos modelos e períodos analisados.
+
+## 9. Estado atual e interpretação do resultado (02/11/2026)
+
+A persistência obteve o menor MAE médio (0,785), frente a A (0,944) e B (0,959). Isso mostra o limite preditivo encontrado, não um erro de treinamento. No teste de 2024, B reduziu erro absoluto em 24 estados e aumentou em 26; portanto, uma pequena melhoria no MAE daquele ano não se manteve como vantagem consistente. O resultado não demonstra presença nem ausência de efeito causal de legislação.
+
+A auditoria RAND contemplou as 18 transições CCW observadas entre 2019 e 2023, não todos os registros legislativos. A convenção de classificação anual exige revisão das datas de vigência completas; veja [plano de continuidade](next_steps.md). Os dados econômicos históricos podem ter revisões e a avaliação não equivale a uma previsão feita com informações de época.

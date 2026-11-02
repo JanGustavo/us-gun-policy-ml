@@ -172,3 +172,17 @@ Em 2024, a codificação identificou:
 As variáveis representam exclusivamente o subtipo legislativo analisado, não todas as exigências estaduais ou federais de verificação de antecedentes.
 
 A transformação utiliza uma aproximação anual das datas de vigência e ainda necessita de validação adicional antes do treinamento.
+
+## BLS: desemprego
+
+BLS LAUS, médias anuais estaduais de 2019–2024. `unemployment_rate` é porcentagem anual. Arquivo processado `data/processed/bls_unemployment_2019_2024.csv`: 300 estado-anos, sem duplicações ou ausência de taxa.
+
+## BEA: renda pessoal per capita
+
+BEA SAINC1, `Per capita personal income (dollars)`. `income_per_capita` é renda **nominal**, não renda mediana, nem ajustada pela inflação. Arquivo processado `data/processed/bea_income_2019_2024.csv`: 300 estado-anos, sem duplicações ou ausência.
+
+## Versão supervisionada V3
+
+`data/processed/us_gun_policy_supervised_v3.csv`: 250 × 13, entradas de 2019–2023 e taxa alvo `homicide_rate_next_year` de 2020–2024. `homicide_count` permanece na tabela, porém não é variável preditora nos modelos atuais; `state` e `year` são chaves. A usa `homicide_rate`, `unemployment_rate`, `income_per_capita`. B acrescenta `ccw_permitless`, `ccw_may_issue`, `background_handgun`, `background_longgun`, usando `ccw_shall_issue` como categoria implícita de referência; `ccw_prohibited` não variou no treino.
+
+As quatro categorias CCW somaram exatamente 1 nas 250 observações supervisionadas verificadas, **não** necessariamente nos 300 registros de 2019–2024; Louisiana 2024 apresentou sobreposição. A vigência jurídica foi aproximada pelo ano, e a convenção de fim de ano precisa de validação com datas completas.
