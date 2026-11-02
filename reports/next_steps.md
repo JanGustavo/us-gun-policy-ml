@@ -27,3 +27,10 @@ Queríamos saber se adicionar informações sobre leis ajudaria a prever melhor.
 ## O que não precisamos fazer agora
 
 Não precisamos adicionar muitos algoritmos, criar fórmulas complexas ou fazer afirmações sobre causa e efeito. Uma explicação clara dos métodos e das limitações é mais importante do que deixar o projeto artificialmente complicado.
+
+
+## Nova ordem de execução (02/11/2026)
+
+A preparação foi reorganizada em **seis notebooks sequenciais** e três blocos por notebook: `01_cdc`, `02_rand`, `03_bls`, `04_bea`, `05_integracao`, `06_modelos`. A lógica do primeiro experimento foi mantida (regressão linear, mesmos atributos e janelas temporais). O CSV supervisionado principal continua sendo a **V3**; as versões V1/V2 foram etapas históricas do desenvolvimento, mas não são mais geradas pelos notebooks novos. Veja [COMECAR_AQUI.md](../COMECAR_AQUI.md) para a ordem e os comandos.
+
+**Reprodutibilidade:** os blocos foram reorganizados para depender apenas dos arquivos de etapas anteriores, mas ainda é necessário conferir a execução completa com os dados originais. As métricas de referência no relatório não foram substituídas por resultados inventados.

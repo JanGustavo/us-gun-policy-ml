@@ -59,3 +59,10 @@ O plano inicial citava a possibilidade de usar Random Forest, mas **não fizemos
 A previsão simples teve menor erro médio nas três rodadas: MAE de 0,785, contra 0,944 no Modelo A e 0,959 no B. Então **não encontramos uma melhoria constante ao acrescentar as informações sobre leis**. É um resultado do nosso trabalho, não uma confirmação de que as leis não têm efeito.
 
 Os números completos estão em [resultados](experiment_results.md). O que ainda falta está em [próximos passos](next_steps.md).
+
+
+## Nova ordem de execução (02/11/2026)
+
+A preparação foi reorganizada em **seis notebooks sequenciais** e três blocos por notebook: `01_cdc`, `02_rand`, `03_bls`, `04_bea`, `05_integracao`, `06_modelos`. A lógica do primeiro experimento foi mantida (regressão linear, mesmos atributos e janelas temporais). O CSV supervisionado principal continua sendo a **V3**; as versões V1/V2 foram etapas históricas do desenvolvimento, mas não são mais geradas pelos notebooks novos. Veja [COMECAR_AQUI.md](../COMECAR_AQUI.md) para a ordem e os comandos.
+
+**Reprodutibilidade:** os blocos foram reorganizados para depender apenas dos arquivos de etapas anteriores, mas ainda é necessário conferir a execução completa com os dados originais. As métricas de referência no relatório não foram substituídas por resultados inventados.
