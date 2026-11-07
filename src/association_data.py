@@ -72,3 +72,16 @@ def build_association_table(cdc, counts):
     if not (result["total_law_records"] == result["restrictive_records"] + result["permissive_records"]).all():
         raise ValueError("Contagem RAND inconsistente")
     return result
+
+
+def build_policy_panel(cdc, counts, ccw, background, unemployment, income):
+    """Integra as quatro fontes do projeto por estado e mesmo ano."""
+    result = build_association_table(cdc, counts)
+    for other in (ccw, background, unemployment, income):
+        result = result.merge(other, on=["state", "year"], how="inner", validate="one_to_one")
+    result = result.sort_values(["state", "year"]).reset_index(drop=True)
+    if len(result) != 300 or result["state"].nunique() != 50:
+        raise ValueError("Cobertura incompleta após integrar as quatro fontes")
+    if result.isna().any().any():
+        raise ValueError("Há valores ausentes no painel completo")
+    return result
