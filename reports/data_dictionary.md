@@ -2,7 +2,7 @@
 
 ## Base principal da AV2: relação entre regras e homicídios
 
-O fluxo atual gera `data/processed/us_gun_policy_association_2019_2024.csv` com **300 linhas e 7 colunas**, uma por estado e ano (50 estados × 2019–2024). O notebook 01 fornece o CDC, o 02 fornece a contagem RAND e o 05 integra as duas fontes pelo mesmo estado e ano.
+O fluxo atual gera `data/processed/us_gun_policy_panel_2019_2024.csv` com **300 linhas e 15 colunas**, uma por estado e ano (50 estados × 2019–2024). O notebook 05 integra CDC, RAND, BLS e BEA pelo mesmo estado e ano. O antigo arquivo `us_gun_policy_association_2019_2024.csv` de 7 colunas foi uma etapa intermediária local e não é a entrada do notebook 06 atual.
 
 | Coluna | Significado |
 | --- | --- |
@@ -13,8 +13,12 @@ O fluxo atual gera `data/processed/us_gun_policy_association_2019_2024.csv` com 
 | `restrictive_records` | Quantidade de `Law ID` da RAND classificados como `Restrictive` e vigentes em 31/12. |
 | `permissive_records` | Quantidade de `Law ID` classificados como `Permissive` e vigentes em 31/12. |
 | `total_law_records` | Soma das duas contagens anteriores. |
+| `ccw_shall_issue`, `ccw_permitless`, `ccw_may_issue`, `ccw_prohibited` | Categorias de porte da RAND, mantidas para consulta. |
+| `background_handgun`, `background_longgun` | Indicadores RAND de verificação de antecedentes em vendas privadas. |
+| `unemployment_rate` | Taxa anual de desemprego estadual do BLS. |
+| `income_per_capita` | Renda pessoal anual por habitante, nominal, do BEA. |
 
-Para contar, usamos registros `Implement` ou `Modify` com data inicial até 31/12 e sem substituição nessa data. Excluímos `Repeal` e `See note`. A unidade é **registro da RAND**, não lei aprovada distinta. A contagem mistura temas jurídicos diferentes; por isso, a soma total sozinha não mede quão restritivo é um estado. A comparação com a taxa de homicídios é uma análise de associação, sem conclusão causal.
+Para contar, usamos registros `Implement` ou `Modify` com data inicial até 31/12 e sem substituição nessa data. Excluímos `Repeal` e `See note`. A unidade é **registro da RAND**, não lei aprovada distinta. A contagem mistura temas jurídicos diferentes; por isso, a soma total sozinha não mede quão restritivo é um estado. O notebook 06 usa as contagens, o desemprego e a renda do **ano anterior** para relacioná-los à taxa do ano seguinte. É uma análise de associação, sem conclusão causal.
 
 ## Datasets e experimento anterior de previsão
 
