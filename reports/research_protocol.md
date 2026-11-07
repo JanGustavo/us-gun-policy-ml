@@ -7,7 +7,7 @@
 
 **Existe relação entre a quantidade de regras estaduais sobre armas registradas na RAND e a taxa de homicídios nos estados americanos?**
 
-A hipótese inicial é que estados com mais regras registradas podem ter taxas diferentes dos estados com menos regras. Ainda precisamos definir quais regras contar e verificar a vigência de cada uma por ano. O desfecho é a **taxa de homicídios por 100 mil habitantes**, e não o total de crimes. A análise dessa relação fica para a próxima etapa. Mesmo que exista associação, ela não demonstra que as leis causaram a diferença.
+A hipótese inicial é que estados com mais registros de regras podem ter taxas diferentes dos estados com menos registros. Contamos os `Law ID` da RAND marcados como `Implement` ou `Modify` vigentes em **31 de dezembro** de cada ano, separando `Restrictive` e `Permissive`. A unidade é registro da RAND, não lei aprovada distinta. O desfecho é a **taxa de homicídios por 100 mil habitantes**, e não o total de crimes. A análise dessa relação fica para a próxima etapa. Mesmo que exista associação, ela não demonstra que as leis causaram a diferença.
 
 ## Experimento anterior: previsão
 
@@ -67,8 +67,8 @@ A previsão simples teve menor erro médio nas três rodadas: MAE de 0,785, cont
 Os números completos estão em [resultados](experiment_results.md). O que ainda falta está em [próximos passos](next_steps.md).
 
 
-## Nova ordem de execução (02/11/2026)
+## Organização do experimento anterior (02/11/2026)
 
-A preparação foi reorganizada em **seis notebooks sequenciais** e três blocos por notebook: `01_cdc`, `02_rand`, `03_bls`, `04_bea`, `05_integracao`, `06_modelos`. A lógica do primeiro experimento foi mantida (regressão linear, mesmos atributos e janelas temporais). O CSV supervisionado principal continua sendo a **V3**; as versões V1/V2 foram etapas históricas do desenvolvimento, mas não são mais geradas pelos notebooks novos. Veja [COMECAR_AQUI.md](../COMECAR_AQUI.md) para a ordem e os comandos.
+A preparação do primeiro experimento usava seis notebooks sequenciais e regressão linear. Para a pergunta principal atual, o fluxo é **01 → 02 → 05**. O notebook 05 agora gera a base de associação, e a V3 supervisionada permanece como artefato histórico do experimento anterior. Veja [COMECAR_AQUI.md](../COMECAR_AQUI.md) para a ordem atual.
 
 **Reprodutibilidade:** os blocos foram reorganizados para depender apenas dos arquivos de etapas anteriores, mas ainda é necessário conferir a execução completa com os dados originais. As métricas de referência no relatório não foram substituídas por resultados inventados.
