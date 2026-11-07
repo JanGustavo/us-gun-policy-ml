@@ -1,5 +1,23 @@
 # Dicionário de Dados
 
+## Base principal da AV2: relação entre regras e homicídios
+
+O fluxo atual gera `data/processed/us_gun_policy_association_2019_2024.csv` com **300 linhas e 7 colunas**, uma por estado e ano (50 estados × 2019–2024). O notebook 01 fornece o CDC, o 02 fornece a contagem RAND e o 05 integra as duas fontes pelo mesmo estado e ano.
+
+| Coluna | Significado |
+| --- | --- |
+| `state` | Estado americano; Washington, D.C., não entra. |
+| `year` | Ano de referência. |
+| `homicide_rate` | Taxa de homicídios totais por 100 mil habitantes, do CDC. |
+| `homicide_count` | Número de homicídios totais, do CDC; mantido como contexto. |
+| `restrictive_records` | Quantidade de `Law ID` da RAND classificados como `Restrictive` e vigentes em 31/12. |
+| `permissive_records` | Quantidade de `Law ID` classificados como `Permissive` e vigentes em 31/12. |
+| `total_law_records` | Soma das duas contagens anteriores. |
+
+Para contar, usamos registros `Implement` ou `Modify` com data inicial até 31/12 e sem substituição nessa data. Excluímos `Repeal` e `See note`. A unidade é **registro da RAND**, não lei aprovada distinta. A contagem mistura temas jurídicos diferentes; por isso, a soma total sozinha não mede quão restritivo é um estado. A comparação com a taxa de homicídios é uma análise de associação, sem conclusão causal.
+
+## Datasets e experimento anterior de previsão
+
 Este arquivo explica o que cada coluna representa. Ele é mais detalhado que o README porque serve de consulta quando precisamos conferir os dados, mas não é necessário decorar os nomes técnicos para entender o trabalho.
 
 ## Dataset 01: Homicídios nos Estados Unidos
