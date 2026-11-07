@@ -1,81 +1,40 @@
-# COMEÇAR AQUI · US Gun Policy ML
+# COMEÇAR AQUI · AV2
 
-Este guia é para **dois estudantes de ADS** que querem abrir o trabalho, entender o que cada parte faz e reproduzir o experimento sem executar dezenas de células isoladas.
+Este guia é para executar o **fluxo principal atual** do projeto. Nossa pergunta é: **existe relação entre a quantidade de registros de regras estaduais sobre armas da RAND e a taxa de homicídios nos estados americanos?** A entrega v1.0 pede as fontes, a hipótese e as bases abertas com Pandas no [Colab](https://colab.research.google.com/github/JanGustavo/us-gun-policy-ml/blob/main/notebooks/00_av2_v1_colab.ipynb). A análise da relação vem depois.
 
-## 1. Abrir o projeto
+## Fluxo principal: 01 → 02 → 05
 
-Abra o terminal **na pasta raiz do repositório** (onde estão `README.md`, `notebooks/` e `requirements.txt`). Se o projeto já estiver instalado e a pasta `.venv` existir:
-
-```bash
-source .venv/bin/activate
-jupyter lab
-```
-
-Se for a primeira vez neste computador:
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-jupyter lab
-```
-
-No navegador, abra `notebooks/` e comece pelo **01**. Para manter a ordem, execute os três blocos de código de cada notebook **um por vez**. Leia a explicação curta antes do bloco; não precisa dar Play em cada linha.
-
-## 2. Ordem correta: 01 → 02 → 03 → 04 → 05 → 06
-
-| Notebook | O que faz | O que você confere ao terminar |
+| Notebook | O que faz | Saída esperada |
 | --- | --- | --- |
-| **01_cdc** | Baixa os homicídios do CDC. | 300 linhas, 50 estados, anos 2019–2024. |
-| **02_rand** | Transforma dados das leis RAND em colunas. | Dois arquivos, cada um com 300 linhas. |
-| **03_bls** | Organiza o desemprego do BLS. | 300 linhas, 3 colunas. |
-| **04_bea** | Organiza a renda por habitante do BEA. | 300 linhas, 3 colunas. |
-| **05_integracao** | Junta as quatro fontes e cria a resposta do ano seguinte. | Base V3 com **250 linhas e 13 colunas**. |
-| **06_modelos** | Treina A e B, compara com previsão simples e mede os erros. | Tabela de nove resultados e resumo das médias. |
+| `01_cdc.ipynb` | Baixa e confere as taxas de homicídios do CDC. | CSV bruto com 306 linhas, incluindo Washington, D.C. |
+| `02_rand.ipynb` | Abre a planilha RAND, preserva as colunas antigas e conta registros de regras vigentes no fim de cada ano. | `rand_law_counts_2019_2024.csv` com 300 linhas. |
+| `05_integracao.ipynb` | Junta CDC e RAND pelo mesmo estado e ano. | `us_gun_policy_association_2019_2024.csv` com 300 linhas e 7 colunas. |
 
-Cada notebook tem **3 blocos** e explicação de cada um. Total: **18 execuções de código**, em vez de aproximadamente 75 células espalhadas. Alguns blocos contêm mais de uma operação, mas continuam organizados por objetivo: **abrir → preparar → conferir/salvar**.
+A planilha RAND já está em `reports/attachments/`. O notebook 01 precisa de internet para baixar o CSV do CDC. Os arquivos em `data/raw/` e `data/processed/` são gerados localmente e não são enviados ao Git.
 
-### Antes de executar: arquivos que precisam existir
+## Como executar no computador
 
-O Git **não inclui** `data/raw/` e `data/processed/`. Confira estas entradas:
+Na pasta raiz do repositório:
 
-- Notebook 01: internet para baixar o CSV do CDC automaticamente.
-- Notebook 02: `reports/attachments/TL-A243-2-v4 State Firearm Law Database 6.0.xlsx` (já está no repositório).
-- Notebook 03: `data/raw/staadata/staadata.xlsx` (extraído do arquivo `staadata.zip` disponível no [BLS](https://www.bls.gov/lau/tables.htm)).
-- Notebook 04: `data/raw/bea/personal_income.csv` (exportação CSV da tabela **SAINC1** do [BEA](https://apps.bea.gov/itable/?ReqID=70&step=1), renda pessoal per capita em dólares).
+```bash
+source .venv/bin/activate
+jupyter lab
+```
 
-Para usar os mesmos dados históricos, mantenha as mesmas fontes e anos. Fontes atualizadas podem mudar valores por revisão.
+Se `.venv` não existir, crie o ambiente e instale `requirements.txt` antes. Abra os notebooks indicados acima e execute os **três blocos de código de cada um, na ordem**. No notebook 05, confira 50 estados em cada ano de 2019 a 2024.
 
-## 3. Como estudar sem se perder
+## Como interpretar a contagem
 
-Em cada notebook, siga esta sequência:
+Cada `Law ID` é um **registro da base RAND**, não necessariamente uma lei aprovada distinta. Contamos registros `Implement` ou `Modify` vigentes em **31 de dezembro** do ano. Não contamos eventos `Repeal` nem linhas `See note`. A RAND classifica os registros como `Restrictive` ou `Permissive`; guardamos as duas contagens e a soma. Assim, “mais registros” não significa automaticamente “leis mais rígidas”.
 
-1. Leia a frase que explica **para que serve o bloco**.
-2. Execute aquele bloco e observe **a quantidade de linhas e colunas**.
-3. Só avance se o resultado fizer sentido ou se a validação terminar sem erro.
+A variável de homicídios é uma **taxa por 100 mil habitantes** e considera homicídios totais, não apenas os cometidos com armas de fogo. Encontrar uma relação entre as colunas não provará que as leis causaram uma mudança na taxa.
 
-Se ocorrer `FileNotFoundError`, confira o nome e o lugar do arquivo. Se ocorrer `NameError`, execute os blocos anteriores **do mesmo notebook**, na ordem. Se aparecer `AssertionError`, alguma verificação não correspondeu à versão esperada dos dados; investigue antes de continuar.
+## Material do experimento anterior
 
-## 4. Resultado esperado ao executar o notebook 06
+`03_bls.ipynb` e `04_bea.ipynb` preparam indicadores econômicos usados na antiga tarefa de previsão. Eles dependem de arquivos brutos externos que não estão no Git. `06_modelos.ipynb`, a base `us_gun_policy_supervised_v3.csv` e `reports/experiment_results.md` documentam aquele experimento. **Não são necessários para reproduzir a base da pergunta principal atual.** Seus resultados continuam guardados como histórico, sem serem apresentados como resposta à nova hipótese.
 
-Com os mesmos dados do experimento original, os valores devem ser próximos destes. **Quanto menor o erro, melhor a previsão.**
+Para conferir a lógica de preparação da nova base, rode:
 
-| Modelo | MAE médio | RMSE médio |
-| --- | ---: | ---: |
-| **Ingênuo**: repetir o ano anterior | **0,785** | **1,027** |
-| **Modelo A**: taxa anterior + desemprego + renda | 0,944 | 1,239 |
-| **Modelo B**: modelo A + leis de armas | 0,959 | 1,263 |
-
-**MAE** é o erro médio; **RMSE** dá maior peso aos erros grandes. O teste é chamado **aprendizado supervisionado** porque ensinamos o programa com exemplos cujas respostas são conhecidas. O treino em **janela expansiva** significa que aumentamos a quantidade de anos usados para aprender em cada rodada.
-
-Esses valores são nossa **referência histórica**, não garantia de números idênticos se alguma fonte oficial tiver sido atualizada. A regressão linear foi mantida para não alterar a experiência sem necessidade.
-
-## 5. O que concluir?
-
-Nos testes atuais, acrescentar informações sobre leis **não ajudou de forma constante** a prever a taxa de homicídios do próximo ano. A previsão mais simples teve o menor erro médio. Isso é um resultado legítimo do trabalho, mas **não demonstra** que uma lei aumenta ou reduz homicídios. Nosso alvo são homicídios totais, não apenas os causados por armas.
-
-Os números completos estão em [resultados](reports/experiment_results.md). O [README](README.md) explica o projeto em poucos minutos.
-
-## 6. O que fazer após reproduzir?
-
-Confira os gráficos e prepare uma apresentação curta: nossa pergunta, de onde vieram os dados, como treinamos, os três resultados e as limitações. **Não precisamos adicionar outro algoritmo para concluir esta etapa.**
+```bash
+.venv/bin/python -m unittest discover -s tests -v
+```
