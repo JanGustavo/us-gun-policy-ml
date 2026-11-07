@@ -7,7 +7,9 @@
 
 **Existe relação entre a quantidade de regras estaduais sobre armas registradas na RAND e a taxa de homicídios nos estados americanos?**
 
-A hipótese inicial é que estados com mais registros de regras podem ter taxas diferentes dos estados com menos registros. Contamos os `Law ID` da RAND marcados como `Implement` ou `Modify` vigentes em **31 de dezembro** de cada ano, separando `Restrictive` e `Permissive`. A unidade é registro da RAND, não lei aprovada distinta. O desfecho é a **taxa de homicídios por 100 mil habitantes**, e não o total de crimes. A análise dessa relação fica para a próxima etapa. Mesmo que exista associação, ela não demonstra que as leis causaram a diferença.
+A hipótese inicial é que estados com mais registros de regras podem ter taxas diferentes dos estados com menos registros. Contamos os `Law ID` da RAND marcados como `Implement` ou `Modify` vigentes em **31 de dezembro** de cada ano, separando `Restrictive` e `Permissive`. A unidade é registro da RAND, não lei aprovada distinta. O desfecho é a **taxa de homicídios por 100 mil habitantes**, e não o total de crimes.
+
+Para uma comparação menos desigual, integramos CDC, RAND, BLS (desemprego) e BEA (renda). O modelo usa regras, desemprego e renda do fim/ano anterior para estudar a taxa do ano seguinte, com diferenças fixas de estado e ano. Assim comparamos mudanças dentro do mesmo estado e consideramos parte das diferenças econômicas observadas. O modelo **não mede cultura** e não elimina todas as explicações alternativas. Veja [a análise inicial](association_results.md). Mesmo que exista associação, ela não demonstra que as leis causaram a diferença.
 
 ## Experimento anterior: previsão
 
@@ -69,6 +71,6 @@ Os números completos estão em [resultados](experiment_results.md). O que ainda
 
 ## Organização do experimento anterior (02/11/2026)
 
-A preparação do primeiro experimento usava seis notebooks sequenciais e regressão linear. Para a pergunta principal atual, o fluxo é **01 → 02 → 05**. O notebook 05 agora gera a base de associação, e a V3 supervisionada permanece como artefato histórico do experimento anterior. Veja [COMECAR_AQUI.md](../COMECAR_AQUI.md) para a ordem atual.
+A preparação do primeiro experimento usava seis notebooks sequenciais e regressão linear para previsão. Para a pergunta principal atual, o fluxo é **01 → 02 → 03 → 04 → 05 → 06**. O notebook 05 gera o painel integrado, e o 06 estima a associação. A V3 supervisionada e o antigo notebook de previsão permanecem como artefatos históricos. Veja [COMECAR_AQUI.md](../COMECAR_AQUI.md) para a ordem atual.
 
 **Reprodutibilidade:** os blocos foram reorganizados para depender apenas dos arquivos de etapas anteriores, mas ainda é necessário conferir a execução completa com os dados originais. As métricas de referência no relatório não foram substituídas por resultados inventados.
