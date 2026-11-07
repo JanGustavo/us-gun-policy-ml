@@ -6,11 +6,13 @@ A comparação de modelos de previsão descrita abaixo é um experimento anterio
 
 ## <a href="COMECAR_AQUI.md">▶ Comece por aqui: fluxo atual e resultados esperados</a>
 
-Para a pergunta atual, execute **01 CDC → 02 RAND → 05 integração**. O guia mostra como abrir o JupyterLab e o que conferir em cada etapa. Os notebooks 03, 04 e 06 pertencem ao experimento anterior de previsão.
+Para a pergunta atual, execute **01 CDC → 02 RAND → 03 desemprego → 04 renda → 05 integração → 06 análise**. O guia mostra como abrir o JupyterLab e o que conferir em cada etapa. O notebook antigo de previsão está guardado em `notebooks/arquivo/`.
 
 ## O que já fizemos
 
-Usamos dados públicos de 50 estados dos EUA, entre 2019 e 2024: CDC (homicídios totais) e RAND (registros de regras estaduais sobre armas). A nova base tem **300 registros e 7 colunas**, um por estado e ano. A pergunta principal ainda não foi testada; nesta etapa, preparamos os dados. BLS (desemprego) e BEA (renda per capita) foram usados no experimento anterior de previsão.
+Usamos dados públicos de 50 estados dos EUA, entre 2019 e 2024: CDC (homicídios totais), RAND (registros de regras estaduais sobre armas), BLS (desemprego) e BEA (renda por pessoa). A base integrada tem **300 registros e 15 colunas**, um por estado e ano. A análise inicial relaciona as regras do fim de um ano à taxa de homicídios do ano seguinte, considerando desemprego, renda, estado e ano.
+
+Os intervalos estimados para os registros restritivos e permissivos incluem zero. Portanto, **a análise atual não indica uma direção clara de associação** e não permite afirmar que as regras tiveram impacto direto. Veja [os resultados da pergunta atual](reports/association_results.md).
 
 ## Resultado do experimento anterior de previsão
 
@@ -26,12 +28,12 @@ A previsão simples teve o menor erro médio dos três testes realizados (para 2
 
 ## O que falta para a pergunta atual
 
-Executar os notebooks 01 → 02 → 05 em um ambiente limpo, conferir a data de vigência dos registros RAND e analisar a relação entre a contagem e a taxa de homicídios. A contagem é de **registros RAND vigentes em 31 de dezembro**, não de leis aprovadas distintas. Não vamos interpretar uma associação como prova de causa e efeito.
+Executar os seis notebooks em um ambiente limpo, conferir a data de vigência dos registros RAND e revisar as limitações do modelo. A contagem é de **registros RAND vigentes em 31 de dezembro**, não de leis aprovadas distintas. Não vamos interpretar uma associação como prova de causa e efeito.
 
 ## Arquivos principais
 
 - [COMEÇAR AQUI](COMECAR_AQUI.md): **instruções do fluxo principal e do material histórico**.
-- [notebooks/](notebooks/): 01, 02 e 05 formam o fluxo atual; 03, 04 e 06 documentam o experimento anterior.
+- [notebooks/](notebooks/): 01 a 06 formam o fluxo atual; `arquivo/` guarda o notebook anterior de previsão.
 - [Plano da pesquisa](reports/research_protocol.md): pergunta e método.
 - [Dicionário de dados](reports/data_dictionary.md): significado das colunas.
 - [Resultados completos](reports/experiment_results.md): tabelas e conclusão.
