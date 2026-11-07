@@ -2,7 +2,7 @@ import unittest
 
 import pandas as pd
 
-from src.association_data import build_association_table, count_rand_records
+from src.association_data import build_association_table, build_policy_panel, count_rand_records
 
 
 class AssociationDataTests(unittest.TestCase):
@@ -32,6 +32,27 @@ class AssociationDataTests(unittest.TestCase):
         counts["total_law_records"] = 2
         with self.assertRaisesRegex(ValueError, "Cobertura inesperada"):
             build_association_table(cdc, counts.iloc[:-1])
+
+    def test_full_panel_rejects_missing_economic_row(self):
+        rows = [(f"State {i}", year) for i in range(50) for year in range(2019, 2025)]
+        cdc = pd.DataFrame(rows, columns=["name", "period"])
+        cdc["rate"] = 5.0
+        cdc["count_sup"] = 100
+        keys = cdc[["name", "period"]].rename(columns={"name": "state", "period": "year"})
+        counts = keys.copy()
+        counts["restrictive_records"] = 1
+        counts["permissive_records"] = 1
+        counts["total_law_records"] = 2
+        ccw = keys.copy()
+        ccw["ccw_permitless"] = 0
+        background = keys.copy()
+        background["background_handgun"] = 0
+        unemployment = keys.copy()
+        unemployment["unemployment_rate"] = 3.0
+        income = keys.iloc[:-1].copy()
+        income["income_per_capita"] = 50000
+        with self.assertRaisesRegex(ValueError, "Cobertura incompleta"):
+            build_policy_panel(cdc, counts, ccw, background, unemployment, income)
 
 
 if __name__ == "__main__":
