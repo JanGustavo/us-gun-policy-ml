@@ -1,6 +1,6 @@
 # AV2 — entrega da versão 1.0
 
-1. **Dataset escolhido:** *Mapping Injury, Overdose, and Violence - State*, do CDC. Nesta etapa, usamos os registros de homicídios totais por estado e ano, de 2019 a 2024. [Página da base](https://data.cdc.gov/d/fpsi-y8tj).
+1. **Dataset escolhido:** *Mapping Injury, Overdose, and Violence - State*, do CDC. Nesta etapa, usamos os registros de homicídios totais por estado e ano, de 2019 a 2024. [Página da base](https://data.cdc.gov/d/fpsi-y8tj). Na etapa seguinte, os dados de leis da RAND serão cruzados com a base do CDC para testar a hipótese.
 2. **Hipótese/pergunta:** saber quais leis estaduais sobre porte de armas e verificação de antecedentes estavam em vigor ajuda a prever a **taxa de homicídios do ano seguinte** em cada estado americano? Nossa hipótese inicial é que essas informações podem melhorar a previsão em relação a usar apenas a taxa do ano anterior, o desemprego e a renda.
 3. **Colab:** [abrir o notebook da versão 1.0](https://colab.research.google.com/github/JanGustavo/us-gun-policy-ml/blob/main/notebooks/00_av2_v1_colab.ipynb). O notebook lê a base pública com Pandas e mostra as primeiras linhas. Para visualizar os dados, basta clicar em **Executar tudo** no Colab.
 
