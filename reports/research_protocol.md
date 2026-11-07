@@ -3,7 +3,13 @@
 **Disciplina:** Machine Learning (AV2)  
 **Equipe:** dois estudantes de Análise e Desenvolvimento de Sistemas
 
-## Nossa pergunta
+## Pergunta principal da AV2 v1.0
+
+**Existe relação entre a quantidade de regras estaduais sobre armas registradas na RAND e a taxa de homicídios nos estados americanos?**
+
+A hipótese inicial é que estados com mais regras registradas podem ter taxas diferentes dos estados com menos regras. Ainda precisamos definir quais regras contar e verificar a vigência de cada uma por ano. O desfecho é a **taxa de homicídios por 100 mil habitantes**, e não o total de crimes. A análise dessa relação fica para a próxima etapa. Mesmo que exista associação, ela não demonstra que as leis causaram a diferença.
+
+## Experimento anterior: previsão
 
 **Informações sobre as leis de armas ajudam a prever a taxa de homicídios do ano seguinte nos estados americanos?**
 
