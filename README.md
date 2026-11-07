@@ -1,6 +1,8 @@
 # US Gun Policy ML
 
-Projeto de **dois estudantes de ADS**, desenvolvido para praticar conceitos básicos de Machine Learning. Nossa pergunta é: **informações sobre as leis de armas ajudam a prever a taxa de homicídios do ano seguinte nos estados americanos?**
+Projeto de **dois estudantes de ADS**, desenvolvido para estudar dados públicos sobre armas e homicídios nos estados americanos. A pergunta principal da AV2 é: **existe relação entre a quantidade de regras estaduais sobre armas registradas na RAND e a taxa de homicídios?** A contagem das regras e a análise dessa relação serão definidas na próxima etapa.
+
+A comparação de modelos de previsão descrita abaixo é um experimento anterior do projeto. Seus resultados não respondem, por si só, à nova pergunta principal.
 
 ## <a href="COMECAR_AQUI.md">▶ Comece por aqui: comandos, seis notebooks e resultados esperados</a>
 
