@@ -12,11 +12,12 @@ def _dates(table, prefix):
     return pd.to_datetime(parts, errors="coerce")
 
 
-def count_rand_records(laws, states, years=YEARS):
+def count_rand_records(laws, states, years=YEARS, month=12, day=31):
     """Conta registros substantivos vigentes em 31/12, por estado e ano.
 
     Cada Law ID é um registro da RAND, não necessariamente uma lei distinta.
     Repeal e See note são eventos/notas, e não regras vigentes para esta medida.
+    month e day mudam o dia de corte (padrão 31/12), para testar outras datas.
     """
     required = {
         "Law ID", "State", "Type of Change", "Effect",
@@ -42,7 +43,7 @@ def count_rand_records(laws, states, years=YEARS):
 
     rows = []
     for year in years:
-        cutoff = pd.Timestamp(year=year, month=12, day=31)
+        cutoff = pd.Timestamp(year=year, month=month, day=day)
         active = selected[(selected["start"] <= cutoff) &
                           (selected["end"].isna() | (selected["end"] > cutoff))]
         counts = active.groupby(["State", "Effect"])["Law ID"].nunique().unstack(fill_value=0)

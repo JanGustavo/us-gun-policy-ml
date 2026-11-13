@@ -1,12 +1,12 @@
 # US Gun Policy ML
 
-Projeto de **dois estudantes de ADS**, desenvolvido para estudar dados públicos sobre armas e homicídios nos estados americanos. A pergunta principal da AV2 é: **existe relação entre a quantidade de regras estaduais sobre armas registradas na RAND e a taxa de homicídios?** A contagem das regras e a análise dessa relação serão definidas na próxima etapa.
+Projeto de **dois estudantes de ADS**, desenvolvido para estudar dados públicos sobre armas e homicídios nos estados americanos. A pergunta principal da AV2 é: **existe relação entre a quantidade de regras estaduais sobre armas registradas na RAND e a taxa de homicídios?** A contagem das regras está no notebook 02 e a análise no 06. A revisão e os gráficos da semana 2 estão no [relatório da semana 2](reports/semana2_relatorio.md).
 
 A comparação de modelos de previsão descrita abaixo é um experimento anterior do projeto. Seus resultados não respondem, por si só, à nova pergunta principal.
 
 ## <a href="COMECAR_AQUI.md">▶ Comece por aqui: fluxo atual e resultados esperados</a>
 
-Para a pergunta atual, execute **01 CDC → 02 RAND → 03 desemprego → 04 renda → 05 integração → 06 análise**. O guia mostra como abrir o JupyterLab e o que conferir em cada etapa. O notebook antigo de previsão está guardado em `notebooks/arquivo/`.
+Para a pergunta atual, execute **01 CDC → 02 RAND → 03 desemprego → 04 renda → 05 integração → 06 análise → 07 revisão da RAND → 08 gráficos**. O guia mostra como abrir o JupyterLab e o que conferir em cada etapa. O notebook antigo de previsão está guardado em `notebooks/arquivo/`.
 
 ## O que já fizemos
 
@@ -28,12 +28,13 @@ A previsão simples teve o menor erro médio dos três testes realizados (para 2
 
 ## O que falta para a pergunta atual
 
-Executar os seis notebooks em um ambiente limpo, conferir a data de vigência dos registros RAND e revisar as limitações do modelo. A contagem é de **registros RAND vigentes em 31 de dezembro**, não de leis aprovadas distintas. Não vamos interpretar uma associação como prova de causa e efeito.
+Na semana 2 repetimos a execução em um ambiente limpo, conferimos as datas de vigência da RAND e fizemos os gráficos. O resultado continuou inconclusivo. Falta olhar um tipo de regra por vez e montar a apresentação. A contagem é de **registros RAND vigentes em 31 de dezembro**, não de leis aprovadas distintas. Não vamos interpretar uma associação como prova de causa e efeito.
 
 ## Arquivos principais
 
 - [COMEÇAR AQUI](COMECAR_AQUI.md): **instruções do fluxo principal e do material histórico**.
-- [notebooks/](notebooks/): 01 a 06 formam o fluxo atual; `arquivo/` guarda o notebook anterior de previsão.
+- [notebooks/](notebooks/): 01 a 08 formam o fluxo atual; `arquivo/` guarda o notebook anterior de previsão.
+- [Relatório da semana 2](reports/semana2_relatorio.md): revisão dos dados, gráficos, resultado e limitações.
 - [Plano da pesquisa](reports/research_protocol.md): pergunta e método.
 - [Dicionário de dados](reports/data_dictionary.md): significado das colunas.
 - [Resultados completos](reports/experiment_results.md): tabelas e conclusão.
