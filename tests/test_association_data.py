@@ -21,6 +21,19 @@ class AssociationDataTests(unittest.TestCase):
         self.assertEqual(result.loc[2021, "permissive_records"], 1)
         self.assertEqual(result.loc[2022, "total_law_records"], 1)
 
+    def test_count_accepts_other_cutoff_day(self):
+        laws = pd.DataFrame([
+            ["A", "Alabama", "Implement", "Restrictive", 2020, 3, 1, 2020, 9, 1],
+            ["B", "Alabama", "Modify", "Restrictive", 2020, 9, 1, None, None, None],
+            ["C", "Alabama", "Implement", "Permissive", 2020, 8, 15, None, None, None],
+        ], columns=["Law ID", "State", "Type of Change", "Effect",
+                    "Effective Date Year", "Effective Date Month", "Effective Date Day",
+                    "Supersession Date Year", "Supersession Date Month", "Supersession Date Day"])
+        meio = count_rand_records(laws, {"Alabama"}, years=[2020], month=7, day=1).iloc[0]
+        fim = count_rand_records(laws, {"Alabama"}, years=[2020]).iloc[0]
+        self.assertEqual((meio["restrictive_records"], meio["permissive_records"]), (1, 0))
+        self.assertEqual((fim["restrictive_records"], fim["permissive_records"]), (1, 1))
+
     def test_integration_rejects_lost_state_years(self):
         rows = [(f"State {i}", year) for i in range(50) for year in range(2019, 2025)]
         cdc = pd.DataFrame(rows, columns=["name", "period"])
