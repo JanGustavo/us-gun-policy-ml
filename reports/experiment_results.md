@@ -1,6 +1,6 @@
 # Resultados dos nossos testes
 
-> **Arquivo histórico:** estes resultados pertencem à pergunta anterior sobre previsão da taxa de homicídios do ano seguinte. Eles não testam a pergunta principal atual da AV2 sobre a relação entre a contagem de regras RAND e a taxa de homicídios no mesmo ano.
+> **Arquivo histórico:** estes resultados pertencem à pergunta anterior sobre previsão da taxa de homicídios do ano seguinte. Eles não testam a pergunta principal atual da AV2 sobre a relação entre a contagem de regras RAND e a taxa de homicídios do ano seguinte.
 
 ## O que queríamos descobrir?
 

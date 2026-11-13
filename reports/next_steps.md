@@ -12,13 +12,16 @@
 - [x] Modelo inicial que usa regras e economia do ano anterior e considera diferenças fixas entre estados e anos.
 - [x] Testes de datas, cobertura da integração e ordem temporal do modelo.
 - [x] Notebook v1.0 no Colab que abre CDC e RAND com Pandas.
+- [x] Semana 2: execução repetida em ambiente limpo, com os mesmos coeficientes. Faltava `openpyxl` no `requirements.txt`.
+- [x] Semana 2: revisão das datas de vigência e da contagem RAND (notebook 07).
+- [x] Semana 2: gráficos por estado e ano (notebook 08) e [relatório](semana2_relatorio.md) com método, resultado e limitações.
 
 ## Próximos passos
 
-1. Executar 01 → 06 em um ambiente limpo. Os arquivos brutos BLS/BEA existem nesta máquina, mas não estão no Git e precisam ser baixados em uma cópia nova do repositório.
-2. Conferir datas de vigência da RAND, especialmente leis que mudaram no meio do ano.
-3. Avaliar se a contagem de registros é uma boa medida para a pergunta. Regras de tipos diferentes não têm a mesma intensidade.
-4. Explorar comparações mais específicas, como uma categoria de regra ou mudanças em um subconjunto de estados, sem escolher apenas resultados favoráveis.
-5. Preparar gráficos e uma apresentação que explique as limitações. A análise atual não permite responder “impacto direto: sim ou não”.
+1. Baixar de novo os brutos do BLS e do BEA em uma máquina nova e rodar o 03 e o 04 pelo caminho "bruto". Na semana 2 eles rodaram a partir dos CSVs processados.
+2. Testar um tipo de regra por vez (por exemplo, só checagem de antecedentes ou só porte velado), decidindo antes quais tipos olhar para não escolher só o que der resultado.
+3. Trocar a taxa de homicídios totais pela de homicídios por arma de fogo, se o CDC tiver a série por estado.
+4. Avaliar um período mais longo. A RAND vai de 1979 a 2025, então o limite é o dado de homicídios.
+5. Montar os slides da apresentação a partir do relatório da semana 2.
 
 O experimento antigo de previsão está preservado em `notebooks/arquivo/06_previsao_anterior.ipynb` e `reports/experiment_results.md`.

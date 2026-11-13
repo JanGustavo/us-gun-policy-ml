@@ -2,7 +2,7 @@
 
 A pergunta principal é: **os registros de regras estaduais sobre armas da RAND têm relação com a taxa de homicídios nos estados americanos?** Para fazer uma comparação menos desigual, usamos também desemprego (BLS) e renda por pessoa (BEA). O notebook 06 examina a associação entre regras vigentes no fim de um ano e a taxa de homicídios do ano seguinte. Ele **não identifica um impacto causal direto**.
 
-## Ordem: 01 → 02 → 03 → 04 → 05 → 06
+## Ordem: 01 → 02 → 03 → 04 → 05 → 06 → 07 → 08
 
 | Notebook | O que faz | O que conferir |
 | --- | --- | --- |
@@ -12,8 +12,10 @@ A pergunta principal é: **os registros de regras estaduais sobre armas da RAND 
 | `04_bea.ipynb` | Prepara renda pessoal por habitante. | 300 linhas. |
 | `05_integracao.ipynb` | Junta as quatro fontes por estado e mesmo ano. | **300 linhas e 15 colunas.** |
 | `06_modelos.ipynb` | Ajusta um modelo de associação com estado, ano, desemprego e renda. | Coeficientes e intervalos para registros restritivos e permissivos. |
+| `07_revisao_rand.ipynb` | Confere as datas da RAND e refaz o modelo com outros dias de corte. | 157 registros novos entre 2019 e 2024; nenhum intervalo fora do zero. |
+| `08_graficos.ipynb` | Faz os gráficos de homicídios e regras por estado e ano. | Cinco figuras em `reports/figures/`. |
 
-Cada notebook tem **três blocos de código**. Execute os blocos na ordem, lendo o texto entre eles. Também é possível usar **Run → Run All Cells** em um notebook de cada vez, depois de concluir o anterior. Se o Jupyter já estava aberto quando o arquivo mudou, feche a aba sem salvar e reabra o notebook do disco.
+Cada notebook tem **três blocos de código**. O resumo do que achamos na semana 2 está em [reports/semana2_relatorio.md](reports/semana2_relatorio.md). Execute os blocos na ordem, lendo o texto entre eles. Também é possível usar **Run → Run All Cells** em um notebook de cada vez, depois de concluir o anterior. Se o Jupyter já estava aberto quando o arquivo mudou, feche a aba sem salvar e reabra o notebook do disco.
 
 ## Arquivos necessários
 
